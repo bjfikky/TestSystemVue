@@ -13,5 +13,7 @@
 <style scoped>
 div {
     padding: 10px;
+    text-align: center;
+    border-top: solid 1px grey;
 }
 </style>
