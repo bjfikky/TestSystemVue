@@ -4,6 +4,8 @@
             <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod ?</h5>
             <hr/>
             <Options/>
+            <hr/>
+            <button class="btn btn-success btn-lg btn-block"><span class="save">SAVE ANSWER</span></button>
         </div>
     </div>
 </template>
@@ -20,5 +22,8 @@
 </script>
 
 <style scoped>
-
+.save {
+    font-weight: bold;
+    letter-spacing: 2px;
+}
 </style>
