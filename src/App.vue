@@ -4,7 +4,7 @@
 		<div class="container">
 			<router-view/>
 		</div>
-		<Footer/>
+		<!-- <Footer/> -->
 	</div>
 </template>
 
@@ -30,5 +30,6 @@ export default {
 
 .container {
 	padding-top: 30px;
+	padding-bottom: 30px;
 }
 </style>
