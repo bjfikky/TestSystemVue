@@ -6,8 +6,8 @@
             <button class="btn btn-outline-success">Next</button>
         </div>
         <div class="numbers">
-            <span class="number green">01</span>
-            <span class="number green">02</span>
+            <span class="number green" v-for="(question, index) in getNumberOfQuestions" v-bind:key="index">{{index + 1}}</span>
+            <!-- <span class="number green">02</span>
             <span class="number green">03</span>
             <span class="number green">04</span>
             <span class="number green">05</span>
@@ -25,14 +25,20 @@
             <span class="number red">17</span>
             <span class="number red">18</span>
             <span class="number red">19</span>
-            <span class="number red">20</span>
+            <span class="number red">20</span> -->
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'questionNav'
+        name: 'questionNav',
+
+        computed: {
+            getNumberOfQuestions() {
+                return this.$store.getters.getQuestions
+            }
+        }
     }
 </script>
 
