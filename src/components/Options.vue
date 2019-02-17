@@ -1,13 +1,13 @@
 <template>
     <div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+        <div class="form-check" v-for="(option, index) in options" v-bind:key="index">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
             <label class="form-check-label" for="exampleRadios1">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit didunt ut labore et dolore magna
+                {{option.text}}
             </label>
         </div>
 
-        <div class="form-check">
+        <!-- <div class="form-check">
             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
             <label class="form-check-label" for="exampleRadios2">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
@@ -26,13 +26,14 @@
             <label class="form-check-label" for="exampleRadios4">
                 Disabled dolor sit amet consectetur adipisicing elit. Quis praesentium fuga ipsum vitae in expedita eaque sit amet
             </label>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script>
     export default {
-        name: 'options'
+        name: 'options',
+        props: ['options']
     }
 </script>
 

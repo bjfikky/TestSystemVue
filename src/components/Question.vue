@@ -1,9 +1,9 @@
 <template>
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod ?</h5>
+            <h5 class="card-title" v-if="getQuestion">{{getQuestion.questionText}}</h5>
             <hr/>
-            <Options/>
+            <Options v-if="getQuestion" v-bind:options="getQuestion.options"/>
             <hr/>
             <button class="btn btn-success btn-lg btn-block"><span class="save">SAVE ANSWER</span></button>
         </div>
@@ -15,9 +15,18 @@
 
     export default {
         name: 'question',
+
         components: {
             Options
-        }
+        },
+
+        computed: {
+            getQuestion() {
+                return this.$store.getters.getQuestions[this.$store.getters.getActiveQuestion]
+            }
+        },
+
+        
     }
 </script>
 

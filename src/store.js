@@ -7,6 +7,7 @@ Vue.use(Vuex, Axios)
 export default new Vuex.Store({
     state: {
         testTakerEmail: '',
+        activeQuestion: 0,
         testQuestions: []
     },
 
@@ -17,6 +18,10 @@ export default new Vuex.Store({
 
         getQuestions(state) {
             return state.testQuestions
+        },
+
+        getActiveQuestion(state) {
+            return state.activeQuestion
         }
     },
 
@@ -28,6 +33,17 @@ export default new Vuex.Store({
         setTestQuestion(state, questions) {
             state.testQuestions = questions
             console.log(state.testQuestions)
+        },
+
+        setActiveQuestion(state, change) {
+            if (change.isReset == true) {
+                state.activeQuestion = 0
+                state.activeQuestion = change.value
+                console.log("reset")
+            } else {
+                state.activeQuestion = state.activeQuestion + change.value
+                console.log("change")
+            }
         }
     },
 

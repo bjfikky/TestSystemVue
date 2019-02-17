@@ -1,31 +1,14 @@
 <template>
     <div>
         <div class="flex-container">
-            <button class="btn btn-outline-secondary">Previous</button>
-            <h6><span class="question-count">10</span>/<span class="question-count">20</span></h6>
-            <button class="btn btn-outline-success">Next</button>
+            <button v-bind:class="[getActiveQuestion == 0 ? 'invisible' : 'visible', 'btn', 'btn-outline-secondary']" @click="changeQuestion({value:-1, isReset:false})">Previous</button>
+
+            <h6><span class="question-count">10</span>/<span class="question-count">{{getQuestions.length}}</span></h6>
+
+            <button v-bind:class="[getActiveQuestion < getQuestions.length - 1 ? 'visible' : 'invisible','btn', 'btn-outline-success']" @click="changeQuestion({value:1, isReset:false})">Next</button>
         </div>
         <div class="numbers">
-            <span class="number green" v-for="(question, index) in getNumberOfQuestions" v-bind:key="index">{{index + 1}}</span>
-            <!-- <span class="number green">02</span>
-            <span class="number green">03</span>
-            <span class="number green">04</span>
-            <span class="number green">05</span>
-            <span class="number green">06</span>
-            <span class="number green">07</span>
-            <span class="number green">08</span>
-            <span class="number green">09</span>
-            <span class="number red active-question">10</span>
-            <span class="number red">11</span>
-            <span class="number red">12</span>
-            <span class="number red">13</span> 
-            <span class="number red">14</span>
-            <span class="number red">15</span>
-            <span class="number red">16</span>
-            <span class="number red">17</span>
-            <span class="number red">18</span>
-            <span class="number red">19</span>
-            <span class="number red">20</span> -->
+            <span v-bind:class="[index == getActiveQuestion ? 'active-question' : '' ,'number' ,'green']" v-for="(question, index) in getQuestions" v-bind:key="index" @click="changeQuestion({value:index, isReset:true})">{{index + 1}}</span>
         </div>
     </div>
 </template>
@@ -35,8 +18,18 @@
         name: 'questionNav',
 
         computed: {
-            getNumberOfQuestions() {
+            getQuestions() {
                 return this.$store.getters.getQuestions
+            },
+
+            getActiveQuestion() {
+                return this.$store.getters.getActiveQuestion
+            }
+        },
+
+        methods: {
+            changeQuestion(change) {
+                this.$store.commit("setActiveQuestion", change)
             }
         }
     }
