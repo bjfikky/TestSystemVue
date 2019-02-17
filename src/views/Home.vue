@@ -1,8 +1,9 @@
 <template>
-  <div class="home">
-    <QuestionsNav/>
-    <Question/>
-  </div>
+	<div class="home">
+		{{testTakerEmail}}
+		<QuestionsNav/>
+		<Question/>
+	</div>
 </template>
 
 <script>
@@ -11,9 +12,15 @@ import Question from '@/components/Question.vue'
 import QuestionsNav from '@/components/QuestionsNav.vue'
 
 export default {
-  name: 'home',
-  components: {
-    Question, QuestionsNav
-  }
+	name: 'home',
+	components: {
+		Question, QuestionsNav
+	},
+
+	computed: {
+		testTakerEmail() {
+			return this.$store.state.testTakerEmail;
+		}
+	}
 }
 </script>
