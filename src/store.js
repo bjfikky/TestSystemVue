@@ -6,6 +6,18 @@ Vue.use(Vuex, Axios)
 
 export default new Vuex.Store({
     state: {
-        testTakerEmail: 'bjfikky@yahoo.com' 
+        testTakerEmail: ''
+    },
+
+    getters: {
+        getTestTakerEmail(state) {
+            return state.testTakerEmail
+        }
+    },
+
+    mutations: {
+        setTestTakerEmail(state, email) {
+            state.testTakerEmail = email
+        }
     }
 })
