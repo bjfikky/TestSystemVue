@@ -1,44 +1,87 @@
 <template>
     <div>
-        <div class="form-check" v-for="(option, index) in options" v-bind:key="index">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-            <label class="form-check-label" for="exampleRadios1">
-                {{option.text}}
+        <div class="form-check" v-for="(option, index) in question.options" v-bind:key="index">           
+            <input class="form-check-input invisible" type="radio" v-bind:name="option.text + option.id" @click="selectOption(option.id)" v-model="selectValue" 
+                v-bind:id="option.text + option.id" v-bind:value="option.id" 
+            >
+            
+            <label v-bind:class="['form-check-label', 'option', option.selected ? 'selected' : '', addChecked(option.id) ? 'saved' : '']" 
+                v-bind:for="option.text + option.id" @click="markOption(option.id)"
+            >
+                {{option.text}} 
             </label>
         </div>
-
-        <!-- <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-            <label class="form-check-label" for="exampleRadios2">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
-            </label>
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
-            <label class="form-check-label" for="exampleRadios3">
-                Leleniti corporis eos recusandae alias omnis, ratione autem inventore, porro est sequi. 
-            </label>
-        </div>
-
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option4">
-            <label class="form-check-label" for="exampleRadios4">
-                Disabled dolor sit amet consectetur adipisicing elit. Quis praesentium fuga ipsum vitae in expedita eaque sit amet
-            </label>
-        </div> -->
     </div>
 </template>
 
 <script>
     export default {
         name: 'options',
-        props: ['options']
+        data() {
+            return {
+                selectValue: this.$store.getters.getSelectedOption,
+                clickState: false
+            }
+        },
+        props: ['question'],
+        updated() {
+            
+        },
+        computed: {
+            getSelectedOptions() {
+                return this.$store.getters.getSavedOptions
+            },
+
+            
+        },
+        methods: {
+            selectOption(id) {
+                this.$store.commit("setSelectedOption", id)
+            }, 
+
+            addChecked(optionId) {
+                return this.$store.getters.getSavedOptions.includes(optionId)
+            },
+
+            optionClicked() {
+                !this.clickState
+                console.log("option selected")
+            },
+
+            markOption(optionId) {
+                this.$store.commit("setOptionSelected", optionId)
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style >
 .form-check {
     padding: 10px 40px;
+}
+
+.saved {
+    border: 1px solid green !important;
+    border-radius: 5px;
+}
+
+.selected {
+    padding: 9px !important;
+    border: 1px solid #fc8b09;
+    border-radius: 5px;
+}
+
+.option {
+    padding: 10px;
+}
+
+.option:hover {
+    padding: 9px;
+    border: 1px solid #fc8b09;
+    border-radius: 5px;
+}
+
+.selected:hover {
+    padding: 10px;
 }
 </style>

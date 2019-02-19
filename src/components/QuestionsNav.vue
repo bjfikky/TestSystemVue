@@ -3,12 +3,12 @@
         <div class="flex-container">
             <button v-bind:class="[getActiveQuestion == 0 ? 'invisible' : 'visible', 'btn', 'btn-outline-secondary']" @click="changeQuestion({value:-1, isReset:false})">Previous</button>
 
-            <h6><span class="question-count">10</span>/<span class="question-count">{{getQuestions.length}}</span></h6>
+            <h6><span class="question-count">-</span>/<span class="question-count">{{getQuestions.length}}</span></h6>
 
             <button v-bind:class="[getActiveQuestion < getQuestions.length - 1 ? 'visible' : 'invisible','btn', 'btn-outline-success']" @click="changeQuestion({value:1, isReset:false})">Next</button>
         </div>
         <div class="numbers">
-            <span v-bind:class="[index == getActiveQuestion ? 'active-question' : '' ,'number' ,'green']" v-for="(question, index) in getQuestions" v-bind:key="index" @click="changeQuestion({value:index, isReset:true})">{{index + 1}}</span>
+            <span v-bind:class="[index == getActiveQuestion ? 'active-question' : '' ,'number' ,'red']" v-for="(question, index) in getQuestions" v-bind:key="index" @click="changeQuestion({value:index, isReset:true})">{{index + 1}}</span>
         </div>
     </div>
 </template>

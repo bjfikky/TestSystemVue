@@ -8,7 +8,9 @@ export default new Vuex.Store({
     state: {
         testTakerEmail: '',
         activeQuestion: 0,
-        testQuestions: []
+        selectedOption: null,
+        testQuestions: [],
+        savedOptions: []
     },
 
     getters: {
@@ -22,6 +24,14 @@ export default new Vuex.Store({
 
         getActiveQuestion(state) {
             return state.activeQuestion
+        },
+
+        getSelectedOption(state) {
+            return state.selectedOption
+        },
+
+        getSavedOptions(state) {
+            return state.savedOptions
         }
     },
 
@@ -44,6 +54,33 @@ export default new Vuex.Store({
                 state.activeQuestion = state.activeQuestion + change.value
                 console.log("change")
             }
+        }, 
+
+        setSelectedOption(state, optionId) {
+            state.selectedOption = optionId
+        },
+
+        setSavedOptions(state, optionId) {
+            state.savedOptions.push(optionId)
+            state.activeQuestion += 1
+            console.log("Answer saved!")
+        },
+
+        setOptionSelected(state, optionId) {
+            state.testQuestions.forEach(testQuestion => {
+                testQuestion.options.forEach(option => {
+
+                    // Deselect any other option that has already been selected
+                    option.selected = false
+
+                    if (option.id == optionId) {
+                        
+                        // Select an option
+                        option.selected = true
+                    }
+                });
+                
+            });
         }
     },
 
@@ -52,6 +89,16 @@ export default new Vuex.Store({
             Axios.get("https://localhost:5001/api/questions").then(result => {               
                 commit("setTestQuestion", result.data)
             })
+        },
+
+        saveAnswer({commit, state}) {
+            Axios.post("https://localhost:5001/api/answers",{
+                "email": state.testTakerEmail,
+                "optionid": state.selectedOption
+            }).then(
+                commit("setSavedOptions", state.selectedOption)
+                // console.log("Answer saved")
+            )
         }
     }
 })

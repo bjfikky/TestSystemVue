@@ -3,9 +3,9 @@
         <div class="card-body">
             <h5 class="card-title" v-if="getQuestion">{{getQuestion.questionText}}</h5>
             <hr/>
-            <Options v-if="getQuestion" v-bind:options="getQuestion.options"/>
+            <Options v-if="getQuestion" v-bind:question="getQuestion"/>
             <hr/>
-            <button class="btn btn-success btn-lg btn-block"><span class="save">SAVE ANSWER</span></button>
+            <button class="btn btn-success btn-lg btn-block" @click="saveAnswer"><span class="save">SAVE ANSWER</span></button>
         </div>
     </div>
 </template>
@@ -22,11 +22,19 @@
 
         computed: {
             getQuestion() {
+                /* 
+                in the store.js, getQuestions returns an array of all questions
+                this method returns a question based on the active question 
+                */
                 return this.$store.getters.getQuestions[this.$store.getters.getActiveQuestion]
             }
         },
 
-        
+        methods: {
+            saveAnswer() {
+                this.$store.dispatch("saveAnswer")
+            }
+        }
     }
 </script>
 
