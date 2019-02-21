@@ -10,7 +10,8 @@ export default new Vuex.Store({
         activeQuestion: 0,
         selectedOption: null,
         testQuestions: [],
-        savedOptions: []
+        savedOptions: [],
+        numberOfAnsweredQuestions: 0
     },
 
     getters: {
@@ -32,6 +33,10 @@ export default new Vuex.Store({
 
         getSavedOptions(state) {
             return state.savedOptions
+        },
+
+        getNumAnsweredQuestions(state) {
+            return state.numberOfAnsweredQuestions
         }
     },
 
@@ -42,17 +47,17 @@ export default new Vuex.Store({
 
         setTestQuestion(state, questions) {
             state.testQuestions = questions
-            console.log(state.testQuestions)
+            //console.log(state.testQuestions)
         },
 
         setActiveQuestion(state, change) {
             if (change.isReset == true) {
                 state.activeQuestion = 0
                 state.activeQuestion = change.value
-                console.log("reset")
+                //console.log("reset")
             } else {
                 state.activeQuestion = state.activeQuestion + change.value
-                console.log("change")
+                //console.log("change")
             }
         }, 
 
@@ -61,9 +66,11 @@ export default new Vuex.Store({
         },
 
         setSavedOptions(state, optionId) {
+            state.testQuestions[state.activeQuestion].answerSaved = true
+
             state.savedOptions.push(optionId)
             state.activeQuestion += 1
-            console.log("Answer saved!")
+            //console.log("Answer saved!")
         },
 
         setOptionSelected(state, optionId) {
@@ -74,13 +81,17 @@ export default new Vuex.Store({
                     option.selected = false
 
                     if (option.id == optionId) {
-                        
+
                         // Select an option
                         option.selected = true
                     }
                 });
                 
             });
+        },
+
+        setNumberOfAnsweredQuestions(state) {
+            state.numberOfAnsweredQuestions++
         }
     },
 
@@ -96,7 +107,8 @@ export default new Vuex.Store({
                 "email": state.testTakerEmail,
                 "optionid": state.selectedOption
             }).then(
-                commit("setSavedOptions", state.selectedOption)
+                commit("setSavedOptions", state.selectedOption),
+                commit("setNumberOfAnsweredQuestions")
                 // console.log("Answer saved")
             )
         }
