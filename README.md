@@ -1,21 +1,21 @@
-# test-system
+# Test System
 
-## Project setup
-```
-npm install
-```
+## Application Description
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+This is a minimum viable product for a multichoice examination. The front-end is developed entirely with VueJS and the backend developed in ASP.Net Core 2.1.
 
-### Compiles and minifies for production
-```
-npm run build
-```
+Questions are added to the database with the Asp.Net Core application. 
 
-### Lints and fixes files
-```
-npm run lint
-```
+The test taker answers the questions from the VueJS application.
+
+Watch a brief walkthrough of using the app here...
+
+## Tools Used
+1. VUE JS
+2. JAVASCRIPT
+2. VUEX
+3. HTML5
+4. CSS3
+5. BOOTSTRAP 4
+
+
