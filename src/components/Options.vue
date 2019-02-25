@@ -5,7 +5,7 @@
                 v-bind:id="option.text + option.id" v-bind:value="option.id" 
             >
             
-            <label v-bind:class="['form-check-label', 'option', option.selected ? 'selected' : '', addChecked(option.id) ? 'saved' : '']" 
+            <label v-bind:class="['form-check-label', 'option', option.selected ? 'selected' : '', savedOptions.includes(option.id) ? 'saved' : '']" 
                 v-bind:for="option.text + option.id" @click="markOption(option.id)"
             >
                 {{option.text}} 
@@ -15,25 +15,30 @@
 </template>
 
 <script>
+    import Axios from 'axios'
+
     export default {
         name: 'options',
         data() {
             return {
                 selectValue: this.$store.getters.getSelectedOption,
-                clickState: false
+                clickState: false,
+                savedOptions: []
             }
         },
+
         props: ['question'],
+        
         updated() {
-            
+            this.getSavedOptions()
         },
+
         computed: {
             getSelectedOptions() {
                 return this.$store.getters.getSavedOptions
-            },
-
-            
+            }
         },
+        
         methods: {
             selectOption(id) {
                 this.$store.commit("setSelectedOption", id)
@@ -50,6 +55,23 @@
 
             markOption(optionId) {
                 this.$store.commit("setOptionSelected", optionId)
+            },
+
+            getSavedOptions() {
+                let email = this.$store.getters.getTestTakerEmail
+
+                Axios.get(`https://localhost:5001/api/answers/${email}`).then(result => {
+                    let answers = result.data
+
+                    let savedOptions = []
+
+                    answers.forEach(answer => {
+                        savedOptions.push(answer.optionId)
+                    });
+                    
+                    this.savedOptions = savedOptions
+
+                })
             }
         }
     }

@@ -5,6 +5,10 @@ import Axios from 'axios'
 Vue.use(Vuex, Axios)
 
 export default new Vuex.Store({
+
+/**
+ * ================================  STATE  ========================
+ */
     state: {
         testTakerEmail: '',
         activeQuestion: 0,
@@ -14,6 +18,10 @@ export default new Vuex.Store({
         numberOfAnsweredQuestions: 0
     },
 
+
+/**
+ *  ==============================  GETTERS  =======================
+ */
     getters: {
         getTestTakerEmail(state) {
             return state.testTakerEmail
@@ -40,6 +48,10 @@ export default new Vuex.Store({
         }
     },
 
+
+/**
+ * =============================  MUTATIONS  =========================
+ */
     mutations: {
         setTestTakerEmail(state, email) {
             state.testTakerEmail = email
@@ -66,9 +78,13 @@ export default new Vuex.Store({
         },
 
         setSavedOptions(state, optionId) {
+
             state.testQuestions[state.activeQuestion].answerSaved = true
 
+            // TODO: Remove a savedOption from the state if it is a change of answer
+
             state.savedOptions.push(optionId)
+
             state.activeQuestion += 1
             //console.log("Answer saved!")
         },
@@ -95,6 +111,10 @@ export default new Vuex.Store({
         }
     },
 
+
+/**
+ * ===============================  ACTIONS  ==========================
+ */    
     actions: {
         getQuestions({commit}) {
             Axios.get("https://localhost:5001/api/questions").then(result => {               
