@@ -8,7 +8,7 @@ Questions are added to the database with the Asp.Net Core application.
 
 The test taker answers the questions from the VueJS application.
 
-Watch a brief walkthrough of using the app here...
+Watch Walkthrough here [App Walkthrough](https://youtu.be/SK665hVgXHM)
 
 ## Tools Used
 1. VUE JS

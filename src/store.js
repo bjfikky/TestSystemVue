@@ -126,11 +126,11 @@ export default new Vuex.Store({
             Axios.post("https://localhost:5001/api/answers",{
                 "email": state.testTakerEmail,
                 "optionid": state.selectedOption
-            }).then(
+            }).then(() => {
                 commit("setSavedOptions", state.selectedOption),
                 commit("setNumberOfAnsweredQuestions")
                 // console.log("Answer saved")
-            )
+            })
         }
     }
 })
